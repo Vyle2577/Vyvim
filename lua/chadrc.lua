@@ -12,31 +12,8 @@ M.base46 = {
 }
 
 M.nvdash = {
-  load_on_startup = true,
-
-  header = {
-    "           ",
-    "           ",
-    "           ",
-    "           ",
-    "  ⟋|､      ",
-    " (°､ ｡ 7   ",
-    " |､  ~ヽ   ",
-    " じしf_,)〳",
-    "           ",
-    "           ",
-  },
-
-  buttons = {
-    { txt = "──────────────────", hl = "Comment" },
-    { txt = "    Files", hl = 'Macro', cmd = "lua Snacks.picker.files()" },
-    { txt = "    Recent", hl = 'Macro', cmd = "lua Snacks.picker.recent()" },
-    { txt = "    Config", hl = 'Macro', cmd = "lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })" },
-    { txt = "    Themes  ", hl = 'Macro', cmd = ":lua require('nvchad.themes').open()" },
-    { txt = "  󰒲  Plugins", hl = 'Macro', cmd = "Lazy" },
-    { txt = "  󰿅  Quit", hl = 'Macro', cmd = ":qa" },
-    { txt = "──────────────────", hl = "Comment" },
-  },
+    buttons = require('ui.nvdash'),
+    load_on_startup = true,
 }
 
 M.cheatsheet = {

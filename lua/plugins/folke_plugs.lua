@@ -5,7 +5,7 @@ return {
         ---@class wk.Opts
         opts = {
             preset = "helix",
-             
+
 
 
     },

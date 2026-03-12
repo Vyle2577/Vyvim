@@ -4,7 +4,6 @@ return {
       ---@module 'blink.cmp'
       ---@type blink.cmp.Config
       opts = {
-        keymap = { preset = 'super-tab' },
       }
   },
 
@@ -15,6 +14,19 @@ return {
   --- @module 'blink.pairs'
   --- @type blink.pairs.Config
   opts = {
+    highlights = {
+        enabled = true,
+        groups = {
+            "BlinkPairsRed",
+            "BlinkPairsOrange",
+            "BlinkPairsYellow",
+            "BlinkPairsGreen",
+            "BlinkPairsCyan",
+            "BlinkPairsBlue",
+            "BlinkPairsViolet",
+        },
+    },
+
     mappings = {
       enabled = true,
       cmdline = true,

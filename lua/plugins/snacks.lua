@@ -165,8 +165,8 @@ local config = {
   scope = {},
   layout = {},
   indent = {
+      enabled = false,
       indent = {
-      enabled = true,
       hl = {
             "SnacksIndent1",
             "SnacksIndent2",

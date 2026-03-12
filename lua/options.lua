@@ -76,7 +76,7 @@ o.splitkeep = 'screen'
 -- Neovide
 if vim.g.neovide then
   vim.o.guifont = "JetBrains Mono:h22:300:#e-subpixelantialias:#h-none"
-  vim.g.neovide_opacity = 0.75
+  vim.g.neovide_opacity = 0.95
   vim.g.neovide_normal_opacity = 0.75
   vim.g.neovide_show_border = false
   vim.g.neovide_hide_mouse_while_typing = true
