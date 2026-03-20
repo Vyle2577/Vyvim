@@ -4,6 +4,35 @@ return {
       ---@module 'blink.cmp'
       ---@type blink.cmp.Config
       opts = {
+        keymap = {
+            preset = 'super-tab',
+            ['<Tab>'] = {
+              function(cmp)
+                if cmp.snippet_active() then return cmp.accept()
+                else return cmp.select_and_accept() end
+              end,
+              'snippet_forward',
+              'fallback'
+            },
+            ['<S-TAB'] = { 'snippet_backward', 'fallback' },
+            ['<CR>'] = false,
+        },
+        signature = {
+            window = {
+                border = 'single',
+            },
+        },
+
+        completion = {
+            trigger = {
+                show_in_snippet = false,
+            },
+            menu = {
+                draw = {
+                    treesitter = { 'lsp' },
+                }
+            }
+        },
         fuzzy = {
             implementation = 'prefer_rust',
         },

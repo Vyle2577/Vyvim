@@ -20,13 +20,13 @@ M.cheatsheet = {
   theme = "grid",
 }
 
+M.lsp = {
+    signature = false,
+}
 
 M.ui = {
   cmp = {
-    style = "flat_dark",
-    icons = true,
-    icons_left = false,
-    format_colors = { lsp = true, icon = '󱓻 ' }
+      style = "atom_colored",
   },
   tabufline = {
     lazyload = false,
@@ -36,6 +36,21 @@ M.ui = {
       theme = "minimal",
       separator_style = "round",
   }
+}
+
+M.term = {
+    startinsert = true,
+    base46_colors = true,
+    winopts = { number = false, relativenumber = false },
+    sizes = { sp = 0.3, vsp = 0.2, ["bo sp"] = 0.3, ["bo vsp"] = 0.2 },
+    float = {
+      relative = "editor",
+      row = 0.3,
+      col = 0.25,
+      width = 0.5,
+      height = 0.4,
+      border = "single",
+    },
 }
 
 return M

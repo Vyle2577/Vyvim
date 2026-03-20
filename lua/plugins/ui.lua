@@ -14,13 +14,13 @@ return {
             [""] = "rainbow-delimiters",
           },
           highlight = {
-            "BlinkCmpKindField", -- Red
-            "BlinkCmpKindType", -- Yellow
-            "BlinkCmpKindEnum", -- Blue
-            "BlinkCmpKindConstant", -- Orange
-            "BlinkCmpKindStruct", -- Violet
-            "BlinkCmpKindValue", -- Cyan
-            "BlinkCmpKindText", -- Green
+            "@annotation", -- Red
+            "@attribute", -- Yellow
+            "@markup.heading", -- Blue
+            "@boolean", -- Orange
+            "@keyword", -- Violet
+            "@markup", -- Cyan
+            "@diff.plus", -- Green
           },
         }
       end,

@@ -1,32 +1,57 @@
 return {
-  {
-      'nvzone/floaterm',
-      dependencies = 'nvzone/volt',
-      opts = {
-          border = true,
-          size = { h = 60, w = 70 },
-      },
-      cmd = 'FloatermToggle',
-  },
+    {
+        "nvzone/floaterm",
+        dependencies = "nvzone/volt",
+        opts = {
+            border = true,
+            size = { h = 60, w = 70 },
+        },
+        cmd = "FloatermToggle",
+    },
 
-  {
-    'tpope/vim-sleuth',
-    opts = {},
-  },
+    {
+        "Fildo7525/pretty_hover",
+        event = "LspAttach",
+        opts = {
+            border = "single",
+        },
+    },
 
-  { import = 'nvchad.blink.lazyspec' },
+    {
+        "tpope/vim-sleuth",
+        opts = {},
+    },
 
-  {
-    "stevearc/conform.nvim",
-    event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
-  },
+    { import = "nvchad.blink.lazyspec" },
 
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
-    end,
-  },
+    {
+        "stevearc/conform.nvim",
+        event = "BufWritePre",
+        opts = require("configs.conform"),
+    },
 
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            require("configs.lspconfig")
+        end,
+    },
+
+    {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
+    },
+
+    {
+        "nvim-treesitter/nvim-treesitter",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
+        config = function()
+            require("configs.treesitter")
+        end,
+    },
 }

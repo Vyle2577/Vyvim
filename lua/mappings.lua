@@ -1,8 +1,15 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
+-- Better Up/Down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+
 -- General Helpers
 map("n", ";", ":", { desc = "CMD enter command mode" }) -- ';' for cmdline
+map('n', '<C-q>', '<cmd>wqall<CR>', { desc = 'Save All & Exit' }) -- Save all and Exit
 map('n', '<C-C>', 'ciw') -- Change Inner Word Shortcut
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>") -- Quicksave
 
@@ -21,6 +28,9 @@ map("n", "<leader>gl", "<cmd>lua Snacks.picker.git_log()<CR>", { desc = "Git Log
 map("n", "<leader>gs", "<cmd>lua Snacks.picker.git_status()<CR>", { desc = "Git Status" })
 map("n", "<leader>fk", "<cmd>lua Snacks.picker.keymaps()<CR>", { desc = "Keymap Search" })
 map("n", "<leader>fp", "<cmd>lua Snacks.picker.lazy()<CR>", { desc = "Plugin Specs Search" })
+
+-- Conform (Formatter)
+map('n', '<leader>cf', function() require('conform').format({ async = true }) end, { desc = "Format File" })
 
 -- Buffers
 map("n", "X", "<cmd>lua require('nvchad.tabufline').close_buffer()<CR>", { desc = 'Close buffer', noremap = true, silent = true })
@@ -49,6 +59,8 @@ map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 
+
+
 -- Clear Search Highlights
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
 
@@ -59,6 +71,12 @@ map("n", "<leader>th", function()
   require("nvchad.themes").open()
 end, { desc = 'Theme picker' })
 
+-- Nvchad Term
+map({ "n", "t" }, "<C-\\>", function() require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" } end, { desc = "terminal toggleable vertical term" })
+map({ "n", "t" }, "<C-/>", function() require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" } end, { desc = "terminal toggleable horizontal term" })
+map({ 'n', 't' }, '<leader>T', "<cmd>FloatermToggle<cr>", { desc = "Float Term" } )
+map( 't', '<C-x>', '<C-\\><C-N>', { desc = 'Escape Terminal Mode' } )
+
 -- Tiny Inline Diagnostics Toggles
 map("n", "<leader>de", "<cmd>TinyInlineDiag enable<cr>", { desc = "Enable diagnostics" })
 map("n", "<leader>dd", "<cmd>TinyInlineDiag disable<cr>", { desc = "Disable diagnostics" })
@@ -66,12 +84,13 @@ map("n", "<leader>dt", "<cmd>TinyInlineDiag toggle<cr>", { desc = "Toggle diagno
 map("n", "<leader>dc", "<cmd>TinyInlineDiag toggle_cursor_only<cr>", { desc = "Toggle cursor-only diagnostics" })
 map("n", "<leader>dr", "<cmd>TinyInlineDiag reset<cr>", { desc = "Reset diagnostic options" })
 
+-- Pretty Hover
+map('n', 'K', function()
+    require('pretty_hover').hover()
+end, { silent = true })
+
 -- Tiny Code Action
 map({ "n", "x" }, "<leader>ca", function()
-	require("tiny-code-action").code_action()
+    require("tiny-code-action").code_action()
 end, { desc = 'Code Action', noremap = true, silent = true })
-
--- Float Term
-map( { 'n', 't' }, '<C-\\>', "<cmd>FloatermToggle<cr>", { desc = "Float Term" } )
-map( 't', '<C-x>', '<C-\\><C-N>', { desc = 'Escape Terminal Mode' } )
 

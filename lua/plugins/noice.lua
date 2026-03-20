@@ -1,188 +1,104 @@
 return {
-    "folke/noice.nvim",
-    lazy = false,
-    opts = {
+  "folke/noice.nvim",
+  event = "VeryLazy",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+  },
+  config = function()
+    vim.opt.shortmess:append "IWs"
+
+    require("noice").setup {
       cmdline = {
         enabled = true,
-        view = "cmdline_popup",
         format = {
-          cmdline = { pattern = "^:", icon = " ", lang = "vim" },
-          search_down = { kind = "search", pattern = "^/", icon = "󰩊 ", lang = "regex" },
-          search_up = { kind = "search", pattern = "^%?", icon = "󰩊 ", lang = "regex" },
-          filter = { pattern = "^:%s*!", icon = "󰻿 ", lang = "bash" },
-          lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
-          help = { pattern = "^:%s*he?l?p?%s+", icon = " " },
-        },
-      },
-      popupmenu = {
-        enabled = true, -- enables the Noice popupmenu UI
-        backend = "nui", -- backend to use to show regular cmdline completions
-      },
-      routes = {
-        {
+          cmdline = {
+            pattern = "^:",
+            icon = " ",
+            lang = "vim",
+            title = " NeoVim ",
+            icon_hl_group = "NoiceCmdlineIcon",
+          },
           filter = {
-            event = "lsp",
-            any = {
-              { find = "formatting" },
-              { find = "Diagnosing" },
-              { find = "Diagnostics" },
-              { find = "diagnostics" },
-              { find = "code_action" },
-              { find = "Processing full semantic tokens" },
-              { find = "symbols" },
-              { find = "completion" },
-            },
+            pattern = "^:!",
+            icon = " ",
+            lang = "sh",
+            title = " Shell ",
+            icon_hl_group = "NoiceCmdlineBashIcon",
           },
-          opts = { skip = true },
-        },
-        {
-          filter = {
-            any = {
-              { find = "No information available" },
-              { find = "No references found" },
-              { find = "No lines in buffer" },
-            },
+          help = {
+            pattern = "^:%s*he?l?p?%s+",
+            icon = " ",
+            lang = "vim",
+            title = " Help ",
+            icon_hl_group = "NoiceCmdlineHelpIcon",
           },
-          opts = { skip = true },
-        },
-        {
-          filter = {
-            event = "notify",
-            any = {
-              { find = "^No code actions available$" },
-
-              -- Telescope
-              { find = "Nothing currently selected" },
-              { find = "^No information available$" },
-              { find = "Highlight group" },
-              { find = "no manual entry for" },
-              { find = "not have parser for" },
-
-              -- Dap
-              { find = "Debug adapter didn't respond" },
-              { find = "setExceptionBreakpoints is currently not supported" },
-
-              -- ts
-              { find = "_ts_parse_query" },
-            },
+          replace = {
+            pattern = "^:s/",
+            icon = " ",
+            lang = "regex",
+            title = " Replace ",
+            icon_hl_group = "NoiceCmdlineReplaceIcon",
           },
-          opts = { skip = true },
-        },
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            any = {
-
-              -- Edit
-              { find = "%d+ less lines" },
-              { find = "%d+ fewer lines" },
-              { find = "%d+ more lines" },
-              { find = "%d+ change;" },
-              { find = "%d+ line less;" },
-              { find = "%d+ more lines?;" },
-              { find = "%d+ fewer lines;?" },
-              { find = '".+" %d+L, %d+B' },
-              { find = "%d+ lines yanked" },
-              { find = "^Hunk %d+ of %d+$" },
-              { find = "%d+L, %d+B$" },
-              { find = "^[/?].*" }, -- Searching up/down
-              { find = "E486: Pattern not found:" }, -- Searcingh not found
-              { find = "%d+ changes?;" }, -- Undoing/redoing
-              { find = "%d+ fewer lines" }, -- Deleting multiple lines
-              { find = "%d+ more lines" }, -- Undoing deletion of multiple lines
-              { find = "%d+ lines " }, -- Performing some other verb on multiple lines
-              { find = "Already at newest change" }, -- Redoing
-              { find = '"[^"]+" %d+L, %d+B' }, -- Saving
-
-              -- Save
-              { find = " bytes written" },
-
-              -- Redo/Undo
-              { find = " changes; before #" },
-              { find = " changes; after #" },
-              { find = "1 change; before #" },
-              { find = "1 change; after #" },
-
-              -- Yank
-              { find = " lines yanked" },
-
-              -- Move lines
-              { find = " lines moved" },
-              { find = " lines indented" },
-
-              -- Bulk edit
-              { find = " fewer lines" },
-              { find = " more lines" },
-              { find = "1 more line" },
-              { find = "1 line less" },
-
-              -- General messages
-              { find = "Already at newest change" }, -- Redoing
-              { find = "Already at oldest change" },
-              { find = "E21: Cannot make changes, 'modifiable' is off" },
-            },
+          replace_all = {
+            pattern = "^:%%s/",
+            icon = " ",
+            lang = "regex",
+            title = " Replace All ",
+            icon_hl_group = "NoiceCmdlineReplaceIcon",
           },
-          opts = { skip = true },
-        },
-      },
-      lsp = {
-        progress = {
-          enabled = false,
-        },
-        signature = {
-          enabled = true,
-          auto_open = {
-            enabled = true,
-            trigger = true,
-            luasnip = true,
-            throttle = 50,
+          highlight = {
+            pattern = { "^:hi ", "^:highlight " },
+            icon = " ",
+            lang = "vim",
+            title = " Highlight ",
+            icon_hl_group = "NoiceCmdlineHlIcon",
           },
-          view = nil, -- when nil, use defaults from documentation
-          opts = {
-            focusable = false,
-            size = {
-              max_height = 15,
-              max_width = 60,
-            },
-            win_options = {
-              wrap = false,
-            },
+          map = {
+            pattern = "^:map ",
+            icon = " ",
+            lang = "vim",
+            title = " Map ",
+            icon_hl_group = "NoiceCmdlineMapIcon",
+          },
+          calculator = {
+            pattern = "^:=",
+            icon = " ",
+            lang = "vimnormal",
+            title = " Calculator ",
+            icon_hl_group = "NoiceCmdlineCalculatorIcon",
+          },
+          lua = {
+            pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" },
+            icon = " ",
+            lang = " lua ",
+            icon_hl_group = "DevIconLua",
+          },
+        cmdline_input = {
+          relative = "cursor",
+          anchor = "auto",
+          position = { row = 2, col = 2 },
+          size = {
+            min_width = 20,
+            width = "auto",
+            height = "auto",
+          },
+          border = {
+            style = "single",
+            padding = { 0, 1 },
           },
         },
-        hover = {
-          silent = true,
-          opts = {
-            size = {
-              max_width = vim.api.nvim_win_get_width(0) - 6,
-            },
-          }
-        },
-        documentation = {
-          opts = {
-            border = {
-              padding = { 0, 0 },
-            },
-          },
-        },
-        override = {
-          -- override the default lsp markdown formatter with Noice
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          -- override the lsp markdown formatter with Noice
-          ["vim.lsp.util.stylize_markdown"] = true,
-          -- override cmp documentation with Noice (needs the other options to work)
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-      views = {
         cmdline_popup = {
           position = {
-            row = 3,
+            row = 5,
             col = "50%",
           },
           size = {
-            width = 60,
+            width = 50,
             height = "auto",
+          },
+          border = {
+            style = "single",
+            padding = { 0, 1 },
           },
         },
         popupmenu = {
@@ -192,28 +108,120 @@ return {
             col = "50%",
           },
           size = {
-            width = 60,
+            width = 50,
             height = 10,
           },
           border = {
-            style = "rounded",
+            style = "single",
             padding = { 0, 1 },
           },
           win_options = {
-            winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+            winhighlight = { Normal = "Normal", FloatBorder = "NoiceCmdlinePopupBorder" },
           },
         },
         mini = {
-          zindex = 100,
-          win_options = { winblend = 0 },
+          timeout = 5000,
+          border = {
+            style = "single",
+          },
+          win_options = {
+            winblend = 0,
+            winhighlight = { Normal = "Normal" },
+          },
+        },
+        confirm = {
+          zindex = 1000,
         },
       },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        lsp_doc_border = true,
-        inc_rename = true,
+      messages = {
+        enabled = true,
+        view = "notify",
+        view_error = "notify",
+        view_warn = "notify",
+        view_history = "messages",
+        view_search = "virtualtext",
       },
-    }
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+        },
+        progress = {
+          enabled = true,
+          view = 'mini',
+        },
+        hover = {
+          enabled = false,
+          silent = true,
+        },
+        signature = {
+          enabled = false,
+        },
+        messages = {
+          enabled = false,
+        },
+      },
+      notify = {
+        view = "notify",
+        enabled = true,
+      },
+      routes = {
+        {
+          filter = {
+            event = { "msg_show", "notify" },
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+              { find = "%d fewer lines" },
+              { find = "%d more lines" },
+              { find = "E486: Pattern not found: (.+)" },
+              { find = "^/([^/]+)$" },
+              { find = "%d lines yanked" },
+              { find = "^table: 0x[0-9a-fA-F]+$" },
+              { find = "^%d+ substitutions on %d+ lines$" },
+              { find = "^No matching notification found to replace$" },
+              { find = "^[C]: in function 'nvim_open_win'" },
+              { find = "'width' key must be a positive Integer" },
+              { find = "Vim:E444: Cannot clos" },
+              { find = "response of request method textDocument/definition is empty" },
+              { find = "Error executing vim.schedule lua callback" },
+              { find = "E21: Cannot make changes, 'modifiable' is off" },
+              { find = "No information available" },
+              { find = "No code actions available" },
+              {
+                find = "method textDocument/codeAction is not supported by any of the servers registered for the current buffer",
+              },
+              { find = "no manual entry for" },
+              { find = "No matching notification found to replace" },
+              { find = "Already at oldest change" },
+              { find = "Already at newest change" },
+              { find = "is deprecated" },
+              { find = "Debug Failure" },
+              { find = "Error executing Lua callback: vim/_editor.lua:0" },
+              { find = "File not found" },
+            },
+          },
+          opts = { skip = true },
+        },
+        {
+          view = "popup",
+          filter = { min_height = 20 },
+          opts = { lang = "lua" },
+        },
+      },
+      smart_move = {
+        enabled = true,
+        excluded_filetypes = { "notify" },
+      },
+      presets = {
+        bottom_search = false,
+        command_palette = false,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
+      },
+    }}
+  end,
 }
 
